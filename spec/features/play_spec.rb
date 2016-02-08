@@ -19,7 +19,7 @@ feature 'playing the game' do
     expect(page).to have_button 'Scissors'
   end
 
-   # As a marketeer
+  # As a marketeer
   # So I can play a game
   # I want to choose a weapon to play
 
@@ -27,6 +27,24 @@ feature 'playing the game' do
     click_button 'Rock'
     expect(page).to have_content 'You chose Rock'
   end
+
+  # As a marketeer
+  # So I can play a game
+  # I want the game to choose an option
+
+  scenario 'game chooses "Rock"' do
+    click_button 'Rock'
+  
+    message = find(:css, "#opponent").text.strip
+
+    expect(possible_messages).to include message
+
+  end
+
+  def possible_messages
+    [:rock, :paper, :scissors].map { |weapon| "Opponent chose #{weapon.to_s.capitalize}"}
+  end
+
 
 
 end
